@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stop_watch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body{
+            background: linear-gradient(to bottom right, #3498db, #8e44ad);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-repeat: no-repeat;
+        }
+        .main{
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #3498db;
+            width: 400px;
+            height: 400px;
+            border-radius: 200px;
+        }
+        .main1{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hrs,.mins,.secs{
+            font-size: 70px;
+            font-weight: bold;
+            color: #333;
+        }
+        button{
+            width: 80px;
+            height: 40px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+            transition: transform 0.3 ease;
+        }
+        button:hover {
+            transform: scale(1.1);
+            background-color: #2980b9;
+        }
+        button:active{
+            background-color: #3498db;
+            opacity: 0.6;
+        }
+        .buttons{
+            display: flex;
+            align-items: baseline;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <center><h1 style="color: #e2dddc;">STOP WATCH⏱️!</h1></center><br>
+    <div class="main">
+        <div class="main1">
+            <span class="hrs">00</span><span>:</span>
+            <span class="mins">00</span><span>:</span>
+            <span class="secs">00</span>
+        </div> 
+        <div class="buttons">
+            <button onclick="reset()">🔁 Reset</button>
+            <button class ="start" onclick="start()">▶️ Start</button>
+        </div>
+        
+    </div>
+
+    <script>
+        var h = 0, m = 0, s = 0;
+        var interval = null; 
+
+        function start() {
+            var x = document.querySelector(".start").innerHTML;
+            if(x == "▶️ Start"){
+                document.querySelector(".start").innerHTML = "⏸️ pause";
+                if (!interval) {
+                    interval = setInterval(mytym, 1000);
+                }
+            }
+            else{
+                document.querySelector(".start").innerHTML = "▶️ Start";
+                clearInterval(interval);
+                interval = null;
+            }
+        }
+
+        function reset(){
+            clearInterval(interval);
+            interval = null;
+            h = 0; m = 0; s = 0;
+            document.querySelector('.hrs').textContent = '00';
+            document.querySelector('.mins').textContent = '00';
+            document.querySelector('.secs').textContent = '00';
+        }
+
+        function mytym() {
+            s++;
+            if (s == 60) {
+                s = 0;
+                m += 1;
+                if (m < 10)
+                    document.querySelector(".mins").innerHTML = "0" + m;
+                else
+                    document.querySelector(".mins").innerHTML = m;
+                
+                if (m == 60) {
+                    m = 0;
+                    h += 1;
+                    if (h < 10)
+                        document.querySelector(".hrs").innerHTML = "0" + h;
+                    else
+                        document.querySelector(".hrs").innerHTML = h;
+                }
+            }
+            if (s < 10) {
+                document.querySelector(".secs").innerHTML = "0" + s;
+            } else {
+                document.querySelector(".secs").innerHTML = s;
+            }
+        }
+    </script>
+</body>
+</html>
